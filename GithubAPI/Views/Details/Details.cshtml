@@ -1,0 +1,62 @@
+﻿@model GithubAPI.Models.Repository
+@{
+    Layout = null;
+    ViewBag.Title = "Details";
+}
+
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title">Detalhes do produto</h4>
+        </div>
+        <div class="modal-body">
+
+
+            <table style="font-size: 1.3em;" cellspacing="5">
+                <tr>
+                    <td style="font-weight: bold;">Nome:</td>
+                    <td>@ViewBag.nome</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold;">Dono:</td>
+                    <td>@ViewBag.dono</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold;">Descrição:</td>
+                    <td>@ViewBag.descricao</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold;">Linguagem:</td>
+                    <td>@ViewBag.linguagem</td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold;">Atualização:</td>
+                    <td>@ViewBag.atualizacao</td>
+                </tr>
+            </table>
+            <br />
+            <br />
+            <span style="font-size: 1.5em; display: flex; justify-content: center;">Contribuidores do Repositório</span>
+            <br />
+            <br />
+            <div style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center;">
+                @foreach (var contribuidor in ViewBag.contribuidores)
+                {
+                    <div style="margin-right: 10px; display: flex; width: 130px;  justify-content: center;">
+                        <a href="@contribuidor.html_url" class="text-center card-body">
+                            <img src="@contribuidor.avatar_url" alt="@contribuidor.login" style="border-radius: 50%;" width="90" height="90">
+                            <h5 class="mb-0 card-title">@contribuidor.login</h5>
+                        </a>
+                    </div>
+                }
+            </div>
+
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+        </div>
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->

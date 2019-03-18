@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@section scripts{
+    <script>
+        function trim(vlr) {
+            if (vlr != undefined) {
+                while (vlr.indexOf(" ") != -1)
+                    vlr = vlr.replace(" ", "$");
+            }
+            return vlr;
+        }
+
+        $(function () {
+            $(".details").click(function () {
+                var nome = trim($(this).attr("nome"));
+                var descricao = trim($(this).attr("descricao"));
+                var atualizacao = trim($(this).attr("atualizacao"));
+                var dono = trim($(this).attr("dono"));
+                var linguagem = trim($(this).attr("linguagem").replace("#", "%Sharp%"));
+                var contribuidores = $(this).attr("contribuidores");                
+                var propriedades = "dono=" + dono + "&nome=" + nome + "&descricao=" + descricao + "&atualizacao=" + atualizacao + "&linguagem=" + linguagem + "&contribuidores=" + contribuidores;                              
+                $("#modal").load("Details/Details?"+propriedades, function () {
+                    $("#modal").modal();
+                })
+            });
+        })
+    </script>
+}
+
+<div>
+    <br />
+    <h2>Lista de Repositórios</h2>
+    <br />
+    <div id="repositorios" >
+        <table class="table table-hover">
+
+            @foreach (var item in ViewBag.repositorios)
+            {
+                <tr>
+                    <td style="font-size: 24px;"><a class="details" data-toggle="modal" nome="@item.name" linguagem="@item.language" descricao="@item.description" atualizacao="@item.updated_at.ToString()" contribuidores="@item.contributors_url" dono="@item.owner.login"> @item.name </a> </td>
+                    <td><button id="favorito" title="Marcar como favorito." style="float: right" class="btn btn-default glyphicon glyphicon-heart" /> </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="modal" id="modal">
+
+    </div>
+
+</div>
+
+
+
